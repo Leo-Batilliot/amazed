@@ -75,7 +75,7 @@ jobs:
 
     mirror:
       needs: [check-compilation, check-coding-style]
-      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && github.event_name == 'pull_request'
+      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && github.event_name == 'push'
       runs-on: ubuntu-latest
 
       steps:
