@@ -1,0 +1,93 @@
+name: Mirror
+
+on:
+    push:
+      branches-ignore: "ga-ignore-*"
+    pull_request:
+      branches-ignore: "ga-ignore-*"
+
+env:
+    MIRROR_URL: "git@github.com:EpitechPGEPromo2029/B-CPE-200-LIL-2-1-amazed-theophile.riffe.git"
+    EXECUTABLES: "template,lib/libmy.a"
+
+
+jobs:
+    check-coding-style:
+        name: Checking coding style
+        if: github.repository != 'EpitechPGEPromo2029/B-CPE-200-LIL-2-1-amazed-theophile.riffe'
+        runs-on: ubuntu-latest
+        container: ghcr.io/epitech/coding-style-checker:latest
+        outputs:
+            run_rest_jobs: ${{steps.set_output.outputs.run_jobs}}
+        
+        steps:
+          - name: Check out repository
+            uses: actions/checkout@v4
+            with:
+              ref: ${{github.head_ref}}
+              fetch-depth: 1
+            
+          - name: run coding style
+            run: $(check.sh $(pwd) $(pwd))
+
+          - name: check coding style error
+            id: set_output
+            run: |
+              if [ -s $(pwd)/coding-style-reports.log ]; then
+                echo "run_jobs=false" >> $GITHUB_OUTPUT
+                while IFS=':' read -r FILE LINE GRAVITY ERROR; do
+                  echo "::error file=$FILE,line=$LINE,title=$GRAVITY::$ERROR"
+                done < $(pwd)/coding-style-reports.log
+              else
+                echo "run_jobs=true" >> $GITHUB_OUTPUT
+              fi
+    
+    check-compilation:
+        name: Checking compilation
+        runs-on: ubuntu-latest
+        container: epitechcontent/epitest-docker:latest
+        outputs:
+          run_rest_jobs: ${{steps.set_output.outputs.run_jobs}}
+  
+        steps:
+          - name: Check out repository
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 1
+  
+          - name: run make re
+            timeout-minutes: 2
+            run: make re
+  
+          - name: run make clean
+            run: make clean
+  
+          - name: Check if files exist
+            id: set_output
+            run: |
+              if [ ${{env.EXECUTABLES}} ]; then
+                echo "run_jobs=true" >> $GITHUB_OUTPUT
+              else
+                echo "run_jobs=false" >> $GITHUB_OUTPUT
+                echo "::error:: compilation failed"
+              fi
+
+
+    mirror:
+      needs: [check-compilation, check-coding-style]
+      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && github.event_name == 'pull_request'
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Mirror
+          uses: pixta-dev/repository-mirroring-action@v1
+          with:
+            target_repo_url:
+              ${{env.MIRROR_URL}}
+            ssh_private_key:
+              ${{secrets.GIT_SSH_PRIVATE_KEY}}
