@@ -79,7 +79,7 @@ OBJ_DIR =   obj
 
 OBJ     =   $(SRC:%.c=$(OBJ_DIR)/%.o)
 
-LIBCFLAGS  =   -I../include -Wall -Wextra -fno-builtin
+CFLAGS  =   -I../include -Wall -Wextra -fno-builtin -g
 
 all: $(NAME)
 
@@ -94,7 +94,7 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	@echo -e "$(YELLOW)[LIBRARY]$(NC)Compiling $<$(NC)"
-	@$(CC) -c $< -o $@ $(LIBCFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
 	@echo -e "$(YELLOW)[LIBRARY] $(BLUE)Clean$(NC)"
@@ -105,3 +105,6 @@ fclean: clean
 	@echo -e "$(YELLOW)[LIBRARY] (BLUE)Full clean$(NC)"
 
 re: fclean all
+
+debug: CFLAGS += -g
+debug: re
