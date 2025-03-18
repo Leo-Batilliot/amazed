@@ -72,7 +72,30 @@ jobs:
                 echo "::error:: compilation failed"
               fi
 
+    check-banned-functions:
+        name: Checking banned functions
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check out repository
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 1
 
+          - name: Run banned functions script
+            run: ./banned_funcs.sh
+
+          - name: Check for banned functions
+            id: set_output
+            run: |
+              if [ -s $(pwd)/banned_funcs.log ]; then
+                echo "run_jobs=false" >> $GITHUB_OUTPUT
+                while IFS= read -r line; do
+                  echo "::error::$line"
+                done < banned_funcs.log
+              else
+                echo "run_jobs=true" >> $GITHUB_OUTPUT
+              fi
+    
     mirror:
       needs: [check-compilation, check-coding-style]
       if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && github.event_name == 'push'
