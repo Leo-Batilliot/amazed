@@ -75,6 +75,9 @@ jobs:
     check-banned-functions:
         name: Checking banned functions
         runs-on: ubuntu-latest
+        outputs:
+          run_rest_jobs: ${{steps.set_output.outputs.run_jobs}}
+
         steps:
           - name: Check out repository
             uses: actions/checkout@v4
@@ -97,8 +100,8 @@ jobs:
               fi
     
     mirror:
-      needs: [check-compilation, check-coding-style]
-      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && github.event_name == 'push'
+      needs: [check-compilation, check-coding-style, check-banned-functions]
+      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && needs.check-banned-functions.outputs.run_rest_jobs == 'true' && github.event_name == 'push'
       runs-on: ubuntu-latest
 
       steps:
