@@ -62,7 +62,7 @@ SRC 	=   io/my_putnbr.c                   \
             lists/create.c                   \
             lists/remove.c                   \
             lists/free_list.c                \
-            lists/add_to_top.c
+            lists/add_to_top.c               \
 
 INCLUDES=   io/my_io.h	      \
             my_printf/my_printf.h   \

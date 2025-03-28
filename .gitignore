@@ -38,6 +38,9 @@
 
 # Project specific
 amazed
+**/B-CPE-200_Amazed_binaries
+**/input
+**/*.pl
 
 # Debug files
 *.dSYM/

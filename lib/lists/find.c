@@ -5,18 +5,20 @@
 ** find node
 */
 
-#include "lists.h"
+#include "my_lists.h"
 
 /*
 **  Finds a node in the list with the given reference
 */
-list_t *find_node(list_t *list, void *ref,
-    int (*cmp)(void *data, void *ref))
+
+list_t *find_node(list_t *head, int to_cmd)
 {
-    while (list) {
-        if (cmp(list->data, ref) == 0)
-            return list;
-        list = list->next;
+    list_t *tmp = head;
+
+    for (; tmp; tmp = tmp->next) {
+        if (tmp->num == to_cmd) {
+            return tmp;
+        }
     }
     return NULL;
 }

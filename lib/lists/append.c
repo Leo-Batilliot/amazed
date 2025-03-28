@@ -5,14 +5,14 @@
 ** append
 */
 
-#include "lists.h"
+#include "my_lists.h"
 
 /*
 ** Appends a node to the end of the list
 */
-void append_node(list_t **list, void *data)
+void append_node(list_t **list, char **array, int is_start, int is_end)
 {
-    list_t *node = create_node(data);
+    list_t *node = create_node(array, is_start, is_end);
     list_t *tmp = *list;
 
     if (node == NULL)
@@ -21,7 +21,6 @@ void append_node(list_t **list, void *data)
         *list = node;
         return;
     }
-    while (tmp->next)
-        tmp = tmp->next;
+    for (; tmp->next; tmp = tmp->next);
     tmp->next = node;
 }
