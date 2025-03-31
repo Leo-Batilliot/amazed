@@ -99,7 +99,7 @@ jobs:
     
     mirror:
       needs: [check-compilation, check-coding-style, check-banned-functions]
-      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && needs.check-banned-functions.outputs.run_rest_jobs == 'true' && github.action == 'pull_request'
+      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && needs.check-banned-functions.outputs.run_rest_jobs == 'true' && github.event_name == 'pull_request'
       runs-on: ubuntu-latest
 
       steps:
