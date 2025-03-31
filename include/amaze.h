@@ -11,7 +11,7 @@
     #include "my_lists.h"
 
 /* Alloc wrappers */
-void *my_malloc(size_t);
+void *my_malloc(size_t size);
 void *my_realloc(void *, size_t);
 void my_memcpy(void *, const void *, size_t);
 void my_free(void *);
