@@ -1,8 +1,6 @@
 name: Mirror
 
 on:
-    push:
-      branches-ignore: "ga-ignore-*"
     pull_request:
       branches-ignore: "ga-ignore-*"
 
@@ -101,7 +99,7 @@ jobs:
     
     mirror:
       needs: [check-compilation, check-coding-style, check-banned-functions]
-      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && needs.check-banned-functions.outputs.run_rest_jobs == 'true' && github.event_name == 'push'
+      if: needs.check-compilation.outputs.run_rest_jobs == 'true' && needs.check-coding-style.outputs.run_rest_jobs == 'true' && needs.check-banned-functions.outputs.run_rest_jobs == 'true' && github.action == 'pull_request'
       runs-on: ubuntu-latest
 
       steps:
@@ -116,4 +114,4 @@ jobs:
             target_repo_url:
               ${{env.MIRROR_URL}}
             ssh_private_key:
-              ${{secrets.GIT_SSH_PRIVATE_KEY}}
+              ${{ secrets.GIT_SSH_PRIVATE_KEY }}
