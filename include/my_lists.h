@@ -43,7 +43,7 @@ void merge_sort(list_t **, int (*cmp)(void const *, void const *));
 void add_to_top(list_t **, char **);
 void append_node(list_t **, char **, int, int);
 void insert_node_at(list_t **, void *, int index);
-void free_list(list_t **, void (*free_data)(void *));
+void free_list(list_t **list);
 void remove_node(list_t **, void const *, void (*free_data)(void *),
     int (*cmp)(void const *, void const *));
 
