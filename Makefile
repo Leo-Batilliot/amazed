@@ -27,7 +27,7 @@ OBJ_DIR = obj
 LIB	=	$(LIB_DIR)/libmy.a
 SRC	=	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing.c \
-		$(SRC_DIR)/alloc_wrap.c
+		$(SRC_DIR)/my_realloc.c
 OBJ =	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 NAME	=	amazed
 
