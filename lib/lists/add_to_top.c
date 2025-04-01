@@ -6,6 +6,7 @@
 */
 
 #include "lists.h"
+#include "amaze.h"
 
 /*
 ** Adds a node to the top of the list

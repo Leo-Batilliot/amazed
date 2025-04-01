@@ -11,10 +11,11 @@
     #include "my_lists.h"
 
 /* Alloc wrappers */
-void *my_malloc(size_t size);
-void *my_realloc(void *, size_t);
+int link_node(char **, list_t **);
+void *malloc(size_t size);
+void *my_realloc(void *, size_t, size_t);
 void my_memcpy(void *, const void *, size_t);
-void my_free(void *);
+void free(void *);
 
 int do_parse(list_t **);
 

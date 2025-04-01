@@ -26,7 +26,7 @@ static int handle_start_end(char **array, int *is_start, int *is_end)
     return 0;
 }
 
-int print_data(int n, char **array)
+int print_data(int n, char **array, int param)
 {
     if (!array)
         return 84;
@@ -37,8 +37,10 @@ int print_data(int n, char **array)
         if (!my_str_isnum(array[i]))
             return 84;
         my_printf("%i", my_getnbr(array[i]));
-        if (array[i + 1] != NULL)
+        if (array[i + 1] && param == 0)
             my_printf(" ");
+        if (array[i + 1] && param == 1)
+            my_printf("-");
     }
     my_printf("\n");
     return 0;
@@ -47,29 +49,11 @@ int print_data(int n, char **array)
 static int process(list_t **head, char **array, int *is_start, int *is_end)
 {
     if (my_strarray_len(array) == 3) {
-        if (print_data(3, array) == 84)
+        if (print_data(3, array, 0) == 84)
             return 84;
         append_node(head, array, (*is_start), (*is_end));
         (*is_end) = 0;
         (*is_start) = 0;
-    }
-    return 0;
-}
-
-static int link_node(char **new_array, list_t **head)
-{
-    list_t *node_one = find_node(*head, my_getnbr(new_array[0]));
-    list_t *node_two = find_node(*head, my_getnbr(new_array[1]));
-
-    if (!node_one || !node_two || (node_one->num == node_two->num))
-        return 1;
-    if (node_one && node_two) {
-        node_one->tab[node_one->this_index] = node_two;
-        node_one->this_index++;
-        node_one->tab[node_one->this_index] = NULL;
-        node_two->tab[node_two->this_index] = node_one;
-        node_two->this_index++;
-        node_two->tab[node_two->this_index] = NULL;
     }
     return 0;
 }
@@ -84,10 +68,14 @@ static int process_tunnels(list_t **head, char **array, int *print_tunnels)
             *print_tunnels = 1;
         }
         new_array = split_string(array[0], "-");
-        if (print_data(2, new_array) == 84)
+        if (print_data(2, new_array, 1) == 84) {
+            my_free_word_array(new_array);
             return 84;
-        if (link_node(new_array, head) == 1)
+        }
+        if (link_node(new_array, head) == 1) {
+            my_free_word_array(new_array);
             return 1;
+        }
     }
     return 0;
 }

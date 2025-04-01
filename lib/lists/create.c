@@ -10,6 +10,7 @@
 #include "my_lists.h"
 #include "my_strings.h"
 #include "my_numbers.h"
+#include "amaze.h"
 
 /*
 **  Creates a new node with the given data
@@ -29,7 +30,7 @@ list_t *create_node(char **array, int is_start, int is_end)
     node->index[0] = my_getnbr(array[1]);
     node->index[1] = my_getnbr(array[2]);
     node->this_index = 0;
-    node->tab = malloc(sizeof(list_t *) * 10000);
+    node->tab = NULL;
     node->next = NULL;
     return node;
 }

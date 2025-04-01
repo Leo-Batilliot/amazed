@@ -25,9 +25,12 @@ OBJ_DIR = obj
 
 # Files
 LIB	=	$(LIB_DIR)/libmy.a
-SRC	=	$(SRC_DIR)/main.c \
-		$(SRC_DIR)/parsing.c \
-		$(SRC_DIR)/alloc_wrap.c
+SRC	=	$(SRC_DIR)/main.c 		\
+		$(SRC_DIR)/parsing.c 	\
+		$(SRC_DIR)/alloc_wrap.c \
+		$(SRC_DIR)/link_node.c 	\
+
+
 OBJ =	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 NAME	=	amazed
 
