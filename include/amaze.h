@@ -13,6 +13,7 @@
 /* Alloc wrappers */
 void *my_realloc(void *, size_t, size_t);
 void my_memcpy(void *, const void *, size_t);
+int link_node(char **, list_t **);
 
 int do_parse(list_t **);
 
