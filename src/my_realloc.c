@@ -5,11 +5,9 @@
 ** realloc
 */
 
-// #include "amaze.h"
+#include "amaze.h"
 
 #include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 
 void my_memcpy(void *dest, const void *src, size_t n)
 {
