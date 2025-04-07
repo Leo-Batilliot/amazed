@@ -26,10 +26,20 @@ OBJ_DIR = obj
 # Files
 LIB	=	$(LIB_DIR)/libmy.a
 
-SRC	=	$(SRC_DIR)/main.c 		\
-		$(SRC_DIR)/parsing.c 	\
-		$(SRC_DIR)/link_node.c 	\
-		$(SRC_DIR)/my_realloc.c
+SRC	=	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/utils/mini_printf.c \
+		$(SRC_DIR)/utils/utils.c \
+		$(SRC_DIR)/utils/lists.c \
+		$(SRC_DIR)/utils/free.c \
+		$(SRC_DIR)/utils/free_list.c \
+		$(SRC_DIR)/parsing/parsing.c \
+		$(SRC_DIR)/parsing/links.c \
+		$(SRC_DIR)/parsing/rooms.c \
+		$(SRC_DIR)/parsing/robots.c \
+		$(SRC_DIR)/algo/algo_main.c \
+		$(SRC_DIR)/algo/calculations.c \
+		$(SRC_DIR)/algo/init.c \
+
 OBJ =	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 NAME	=	amazed
 
