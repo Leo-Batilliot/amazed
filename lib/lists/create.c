@@ -10,7 +10,7 @@
 #include "my_lists.h"
 #include "my_strings.h"
 #include "my_numbers.h"
-#include "amaze.h"
+#include "amazed.h"
 
 /*
 **  Creates a new node with the given data

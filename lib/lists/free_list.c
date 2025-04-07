@@ -6,7 +6,7 @@
 */
 
 #include "lists.h"
-#include "amaze.h"
+#include "amazed.h"
 
 /*
 ** Frees the list and its data using the function pointer passed as parameter

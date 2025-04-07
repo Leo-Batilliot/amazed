@@ -6,7 +6,7 @@
 */
 
 #include "lists.h"
-#include "amaze.h"
+#include "amazed.h"
 
 /*
 ** void (*free_data)(void *data) is a function pointer
