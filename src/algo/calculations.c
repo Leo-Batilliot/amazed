@@ -57,6 +57,15 @@ static void browse_neighbors(path_list_t *list, int *nb_paths, int opt)
     }
 }
 
+static void add_data_to_path(
+    path_t *path, room_t *room, int distance, int score)
+{
+    path->room = room;
+    path->distance = distance;
+    path->score = score;
+    path->prev = NULL;
+}
+
 static path_t *path_copy(path_t *path)
 {
     path_t *new = NULL;
@@ -69,10 +78,8 @@ static path_t *path_copy(path_t *path)
             free_path(head);
             return NULL;
         }
-        new->room = current->room;
-        new->distance = current->distance;
-        new->score = current->score;
-        new->prev = NULL;
+        add_data_to_path(new, current->room,
+            current->distance, current->score);
         if (prev)
             prev->prev = new;
         else

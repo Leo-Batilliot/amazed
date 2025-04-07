@@ -13,9 +13,7 @@ static int maze_error_handling(maze_t *maze)
 {
     path_t *path = NULL;
 
-    if (!maze)
-        return 1;
-    if (maze->return_value == 84)
+    if (!maze || maze->return_value == 84)
         return 1;
     if (!maze->start || !maze->end)
         return mini_printf(2, "No start/end room\n") + 1;

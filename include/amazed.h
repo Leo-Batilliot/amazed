@@ -45,7 +45,7 @@ typedef struct link_s {
     struct link_s *next_link;
 } link_t;
 
-typedef struct room_s { 
+typedef struct room_s {
     char *room_name;
     robot_t *robot;
     int posx;
@@ -80,18 +80,18 @@ room_t *get_best_room(room_t *, robot_t *, room_t *);
 int free_maze(maze_t *maze);
 int get_robots_numbers(maze_t *, linked_list_t **);
 int parse_link(maze_t *, char *, int);
-int parse_room(maze_t *, char **, int, int [2]);
+int parse_room(maze_t *, char **, int, int[2]);
 path_t *get_best_path(room_t *, room_t *, int);
 
 /*    INIT    */
 path_t *init_path(room_t *);
-robot_t *init_robots_list(room_t *, int); 
+robot_t *init_robots_list(room_t *, int);
 
 /*    FREE    */
 void free_end_robots(room_t *, robot_t **);
 void my_free_list(linked_list_t **);
 void free_path(path_t *);
-room_t * free_best_room(algo_t *, room_t *);
+room_t *free_best_room(algo_t *, room_t *);
 void free_path_list(linked_list_t *);
 
 /*    UTILS    */

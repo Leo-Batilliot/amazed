@@ -72,7 +72,7 @@ static maze_t *parse_maze(maze_t *maze,
             continue;
         if (check_line(maze, line, line_index, found))
             return return_and_free(maze, &file_content, line);
-        found[0] = 0; 
+        found[0] = 0;
         found[1] = 0;
         my_free_word_array(line);
     }
