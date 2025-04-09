@@ -10,34 +10,29 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-static void move_file_content(linked_list_t **file_content)
+static void skip_comments(linked_list_t **lines, int *line_nb)
 {
-    for (linked_list_t *tmp; *file_content &&
-            ((char *)(*file_content)->data)[0] == '#'; free(tmp)) {
-        tmp = *file_content;
-        *file_content = (*file_content)->next;
+    for (linked_list_t *tmp; *lines && ((char *)(*lines)->data)[0] == '#';
+        *line_nb += 1 + my_free((void *)tmp->data) + my_free((void *)tmp)) {
+        tmp = *lines;
+        *lines = (*lines)->next;
     }
 }
 
-int get_robots_numbers(maze_t *maze, linked_list_t **file_content)
+int get_robots_count(maze_t *maze, linked_list_t **lines, int *line_nb)
 {
-    char **content;
+    char **array = NULL;
 
-    move_file_content(file_content);
-    content = split_string((*file_content)->data, " \t\n");
-    if (content == NULL || content[0] == NULL ||
-    my_array_len((void *)content) != 1 || !my_str_isnum(content[0])) {
-        return_and_free(maze, file_content, content);
-        mini_printf(2, "Invalid robot number\n");
-        return 1;
-    }
-    maze->nb_robots = my_getnbr(content[0]);
-    if (maze->nb_robots < 1) {
-        return_and_free(maze, file_content, content);
-        mini_printf(2, "Robots number has to be higher then 0\n");
-        return 1;
-    }
-    my_free_word_array(content);
-    mini_printf(1, "#number_of_robots\n%d\n", maze->nb_robots);
-    return 0;
+    skip_comments(lines, line_nb);
+    array = split_string((*lines)->data, " \t\n");
+    if (!array || !array[0] || my_array_len((void *)array) != 1 ||
+        !my_str_isnum(array[0]))
+        return mini_printf(2, "Invalid robots count [l-%d]\n", *line_nb) + 1 +
+            free_array((void **)array) + free_lists(lines);
+    maze->nb_robots = my_getnbr(array[0]);
+    if (maze->nb_robots <= 0)
+        return mini_printf(2, "Robots count must be positive [l-%d]\n",
+            *line_nb) + 1 + free_array((void **)array) + free_lists(lines);
+    return mini_printf(1, "#number_of_robots\n%d\n", maze->nb_robots) +
+        free_array((void **)array);
 }

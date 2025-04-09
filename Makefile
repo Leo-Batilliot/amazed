@@ -32,6 +32,7 @@ SRC	=	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/utils/lists.c \
 		$(SRC_DIR)/utils/free.c \
 		$(SRC_DIR)/utils/free_list.c \
+		$(SRC_DIR)/utils/array_len.c \
 		$(SRC_DIR)/parsing/parsing.c \
 		$(SRC_DIR)/parsing/links.c \
 		$(SRC_DIR)/parsing/rooms.c \
@@ -39,6 +40,7 @@ SRC	=	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/algo/algo_main.c \
 		$(SRC_DIR)/algo/calculations.c \
 		$(SRC_DIR)/algo/init.c \
+		$(SRC_DIR)/algo/free.c \
 
 OBJ =	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 NAME	=	amazed
