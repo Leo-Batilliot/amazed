@@ -64,3 +64,6 @@ dkms.conf
 *.swp
 .vscode/
 .idea/
+
+# BONUS
+amazed_bonus
