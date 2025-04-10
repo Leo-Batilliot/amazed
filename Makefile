@@ -82,14 +82,14 @@ debug: all
 BONUS_SRC_DIR = bonus
 BONUS_OBJ_DIR = obj_bonus
 
-BONUS_SRC = $(BONUS_SRC_DIR)/src/main.c 					\
-           	$(BONUS_SRC_DIR)/src/csfml/print.c 				\
-			$(BONUS_SRC_DIR)/src/csfml/event.c 				\
-			$(BONUS_SRC_DIR)/src/parsing.c					\
-			$(BONUS_SRC_DIR)/src/csfml/main_loop.c			\
-			$(BONUS_SRC_DIR)/src/utils/linked_list.c		\
-			$(BONUS_SRC_DIR)/src/split_string.c 			\
-			$(BONUS_SRC_DIR)/src/my_strncpy.c 				\
+BONUS_SRC = $(BONUS_SRC_DIR)/$(SRC_DIR)/main.c 					\
+           	$(BONUS_SRC_DIR)/$(SRC_DIR)/csfml/print.c 				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/csfml/event.c 				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/parsing.c					\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/csfml/main_loop.c			\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/linked_list.c		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/split_string.c 			\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/my_strncpy.c 				\
 
 BONUS_OBJ = $(BONUS_SRC:$(BONUS_SRC_DIR)/%.c=$(BONUS_OBJ_DIR)/%.o)
 BONUS_NAME = amazed_bonus

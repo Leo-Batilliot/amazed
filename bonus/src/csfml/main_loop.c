@@ -155,14 +155,15 @@ int main_loop(main_struct_t *main_struct)
 
     main_struct->f = create_window();
     call_functions(main_struct);
+    sfRenderWindow_setFramerateLimit(main_struct->f, 60);
     while (sfRenderWindow_isOpen(main_struct->f)) {
         update_event(main_struct, event);
         if (sfClock_getElapsedTime(main_struct->clock).microseconds > 16667) {
             sfClock_restart(main_struct->clock);
             update_robots_position(main_struct, &current_index);
             update_text_tour(main_struct, current_index);
+            draw_all(main_struct);
         }
-        draw_all(main_struct);
     }
     return 0;
 }
