@@ -40,10 +40,8 @@
 amazed
 tester.sh
 tests/
-laby_gen.pl
 **/B-CPE-200_Amazed_binaries
 **/input
-**/*.pl
 
 # Debug files
 *.dSYM/
