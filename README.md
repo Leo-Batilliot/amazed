@@ -70,13 +70,13 @@ Alternatively, you can shortcut this by launching the program directly with the 
 There are a few requirements for this project to be compiled and ran.
 
 First, you need to be on Linux.
-Then you will need to following packages:
-```
-gcc (compiler)
-perl (maze generator)
-make (build tool)
-CSFML library (for the graphical bonus)
-```
+Then you will need the following packages:
+
+- gcc (compiler)
+- perl (maze generator)
+- make (build tool)
+- CSFML library (for the graphical bonus)
+
 ---
 
 ## Disclaimer
