@@ -78,3 +78,39 @@ re: fclean all
 
 debug: CFLAGS += -g
 debug: all
+
+BONUS_SRC_DIR = bonus
+BONUS_OBJ_DIR = obj_bonus
+
+BONUS_SRC = $(BONUS_SRC_DIR)/src/main.c 					\
+           	$(BONUS_SRC_DIR)/src/csfml/print.c 				\
+			$(BONUS_SRC_DIR)/src/csfml/event.c 				\
+			$(BONUS_SRC_DIR)/src/parsing.c					\
+			$(BONUS_SRC_DIR)/src/csfml/main_loop.c			\
+			$(BONUS_SRC_DIR)/src/utils/linked_list.c		\
+			$(BONUS_SRC_DIR)/src/split_string.c 			\
+			$(BONUS_SRC_DIR)/src/my_strncpy.c 				\
+
+BONUS_OBJ = $(BONUS_SRC:$(BONUS_SRC_DIR)/%.c=$(BONUS_OBJ_DIR)/%.o)
+BONUS_NAME = amazed_bonus
+
+CSFMLFLAGS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+
+bonus: $(BONUS_OBJ)
+	@$(CC) -o $(BONUS_NAME) $(BONUS_OBJ) -L$(LIB_DIR) $(CSFMLFLAGS) -lm
+	@echo -e "$(GREEN)[BONUS] $(BLUE)Bonus program compiled$(NC)"
+
+$(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	@echo -e "$(GREEN)[BONUS]$(NC)Compiling $<$(NC)"
+	@$(CC) -c $< -o $@ $(CFLAGS)
+
+clean_bonus:
+	@rm -rf $(BONUS_OBJ_DIR)
+	@echo -e "$(GREEN)[BONUS] $(BLUE)Bonus clean$(NC)"
+
+fclean_bonus: clean_bonus
+	@rm -f $(BONUS_NAME)
+	@echo -e "$(YELLOW)[BONUS] $(BLUE)Full bonus clean$(NC)"
+
+re_bonus: fclean_bonus bonus
