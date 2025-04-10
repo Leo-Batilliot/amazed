@@ -116,7 +116,8 @@ int parsing_file(FILE *fd, main_struct_t *main_struct)
     int _end = 0;
 
     while (getline(&line, &size, fd) != -1) {
-        line[strlen(line) - 1] = '\0';
+        if (line[strlen(line) - 1] == '\n')
+            line[strlen(line) - 1] = '\0';
         if (count == 0)
             main_struct->nb_robots = strdup(line);
         if (check_word(line, &is_room, &is_link, main_struct, &is_move) == 1)
