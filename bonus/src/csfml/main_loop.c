@@ -81,13 +81,50 @@ void update_text_position(robot_t *robot)
     sfText_setPosition(robot->text, text_pos);
 }
 
+static sfVector2f get_end_room(main_struct_t *main_struct)
+{
+    for (rooms_t *tmp = main_struct->list; tmp; tmp = tmp->next)
+        if (tmp->is_end == 1)
+            return tmp->pos;
+    return (sfVector2f){0, 0};
+}
+
+static sfVector2f get_start_room(main_struct_t *main_struct)
+{
+    for (rooms_t *tmp = main_struct->list; tmp; tmp = tmp->next)
+        if (tmp->is_start == 1)
+            return tmp->pos;
+    return (sfVector2f){0, 0};
+}
+
 void draw_all(main_struct_t *main_struct)
 {
+    sfVector2f end_room = get_end_room(main_struct);
+    sfVector2f start_room = get_start_room(main_struct);
+    sfBool first = sfTrue;
+    int arrived = 0;
+    char *arrived_str = NULL;
+
     sfRenderWindow_clear(main_struct->f, sfBlack);
     for (robot_t *cur = main_struct->robot; cur; cur = cur->next) {
-        sfRenderWindow_drawText(main_struct->f, cur->text, NULL);
-        sfRenderWindow_drawSprite(main_struct->f, cur->robot_sprite, NULL);
+        if (sfSprite_getPosition(cur->robot_sprite).x == end_room.x &&
+            sfSprite_getPosition(cur->robot_sprite).y == end_room.y) {
+            arrived++;
+            continue;
+        }
+        if (sfSprite_getPosition(cur->robot_sprite).x != start_room.x &&
+            sfSprite_getPosition(cur->robot_sprite).y != start_room.y) {
+            sfRenderWindow_drawText(main_struct->f, cur->text, NULL);
+                sfRenderWindow_drawSprite(main_struct->f, cur->robot_sprite, NULL);
+        } else if (first) {
+            sfRenderWindow_drawSprite(main_struct->f, cur->robot_sprite, NULL);
+            first = sfFalse; 
+       }
     }
+    asprintf(&arrived_str, "Robots arrived: %d/%d", arrived, atoi(main_struct->nb_robots));
+    sfText_setString(main_struct->str_nb_rooms, arrived_str);
+    free(arrived_str);
+    sfText_setPosition(main_struct->str_nb_rooms, (sfVector2f){1575, 50});
     sfRenderWindow_drawText(main_struct->f, main_struct->str_nb_rooms, NULL);
     sfRenderWindow_drawText(main_struct->f, main_struct->text_nb_tour, NULL);
     print_rooms(main_struct, main_struct->str_rooms);
