@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../include/bonus.h"
+#include "bonus.h"
 
 static int isdelim(char c, char const *delim)
 {

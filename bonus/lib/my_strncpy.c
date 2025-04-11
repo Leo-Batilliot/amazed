@@ -6,7 +6,6 @@
 */
 
 #include <stddef.h>
-#include "my_strings.h"
 
 char *my_strncpy(char *dest, char const *src, int n)
 {
