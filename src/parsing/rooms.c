@@ -30,7 +30,7 @@ int parse_room(maze_t *maze, char **line, int index, int found[2])
 
     if (!my_str_isnum(line[1]) || !my_str_isnum(line[2]))
         return mini_printf(2,
-            "Room position has to be numerical [l-%d]\n", index) - 1;
+            "Room position has to be numerical [l-%d]\n", index) + 1;
     posy = cut_comment(line[2]) + my_getnbr(line[2]);
     for (room_t *tmp = maze->rooms_list; tmp; tmp = tmp->next)
         if (!my_strcmp(tmp->room_name, line[0]) ||

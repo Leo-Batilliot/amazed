@@ -13,12 +13,12 @@
 
 static int check_line(maze_t *maze, char **line, int line_index, int found[2])
 {
-    if (my_array_len((void *)line) == 3 ||
-        (my_array_len((void *)line) > 3 && line[3][0] == '#'))
-        return parse_room(maze, line, line_index, found);
-    else if (my_array_len((void *)line) == 1 ||
+    if (my_array_len((void *)line) == 1 ||
         (my_array_len((void *)line) > 1 && line[1][0] == '#'))
         return parse_link(maze, line[0], line_index);
+    else if (my_array_len((void *)line) == 3 ||
+        (my_array_len((void *)line) > 3 && line[3][0] == '#'))
+        return parse_room(maze, line, line_index, found);
     return mini_printf(2, "Invalid line [l-%d]\n", line_index) - 1;
 }
 
