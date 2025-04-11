@@ -82,22 +82,39 @@ debug: all
 BONUS_SRC_DIR = bonus
 BONUS_OBJ_DIR = obj_bonus
 
-BONUS_SRC = $(BONUS_SRC_DIR)/$(SRC_DIR)/main.c 					\
-           	$(BONUS_SRC_DIR)/$(SRC_DIR)/csfml/print.c 				\
-			$(BONUS_SRC_DIR)/$(SRC_DIR)/csfml/event.c 				\
-			$(BONUS_SRC_DIR)/$(SRC_DIR)/parsing.c					\
-			$(BONUS_SRC_DIR)/$(SRC_DIR)/csfml/main_loop.c			\
-			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/linked_list.c		\
-			$(BONUS_SRC_DIR)/$(SRC_DIR)/split_string.c 			\
-			$(BONUS_SRC_DIR)/$(SRC_DIR)/my_strncpy.c 				\
+BONUS_SRC = $(BONUS_SRC_DIR)/$(SRC_DIR)/main.c 						\
+			$(BONUS_SRC_DIR)/lib/linked_list.c						\
+			$(BONUS_SRC_DIR)/lib/split_string.c 					\
+			$(BONUS_SRC_DIR)/lib/my_strncpy.c 						\
+			$(BONUS_SRC_DIR)/lib/free.c 							\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/buttons_draw.c 		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/buttons_free.c 		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/buttons_init.c 		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/buttons_state.c 		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/utils/arrays.c 				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/init_sim.c 				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/free_sim.c 				\
+           	$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/sim_render.c			\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/event.c 				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/parsing.c				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/main_loop.c				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/sim/sim_main.c 				\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/main_menu/menu_main.c 		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/main_menu/menu_events.c 	\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/main_menu/init_menu.c 		\
+			$(BONUS_SRC_DIR)/$(SRC_DIR)/main_menu/free_menu.c 		\
+
 
 BONUS_OBJ = $(BONUS_SRC:$(BONUS_SRC_DIR)/%.c=$(BONUS_OBJ_DIR)/%.o)
 BONUS_NAME = amazed_bonus
 
 CSFMLFLAGS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+BONUS_INCLUDE_DIR = bonus/include
 
+bonus: CFLAGS = -I$(BONUS_INCLUDE_DIR)  $(CSFMLFLAGS)
+bonus: CFLAGS += -Wall -Wextra -L$(LIB_DIR) -lmy -lm
 bonus: $(BONUS_OBJ)
-	@$(CC) -o $(BONUS_NAME) $(BONUS_OBJ) -L$(LIB_DIR) $(CSFMLFLAGS) -lm
+	@$(CC) -o $(BONUS_NAME) $(BONUS_OBJ) $(CFLAGS)
 	@echo -e "$(GREEN)[BONUS] $(BLUE)Bonus program compiled$(NC)"
 
 $(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c
