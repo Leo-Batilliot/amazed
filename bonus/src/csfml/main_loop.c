@@ -119,7 +119,7 @@ void draw_all(main_struct_t *main_struct)
         } else if (first) {
             sfRenderWindow_drawSprite(main_struct->f, cur->robot_sprite, NULL);
             first = sfFalse; 
-       }
+        }
     }
     asprintf(&arrived_str, "Robots arrived: %d/%d", arrived, atoi(main_struct->nb_robots));
     sfText_setString(main_struct->str_nb_rooms, arrived_str);
@@ -162,7 +162,7 @@ static void update_position(robot_t *cur, int *all_reached, sfVector2f current_p
 void update_text_tour(main_struct_t *main_struct, int current_index)
 {
     char *str = NULL;
-    asprintf(&str, "Tour : %d/%d", current_index + 1, main_struct->nb_tour);
+    asprintf(&str, "Move %d/%d", current_index + 1, main_struct->nb_tour);
     sfText_setString(main_struct->text_nb_tour, str);
     free(str);
 }
