@@ -1,5 +1,7 @@
 # amazed
 
+![Demo](docs/demo.gif)
+
 Epitech project (B-CPE-200). A C program that finds paths for a group of robots through a network of rooms linked by tunnels, so that they all reach the end room in as few moves as possible.
 
 ## Build
